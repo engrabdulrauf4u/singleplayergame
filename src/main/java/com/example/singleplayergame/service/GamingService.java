@@ -1,20 +1,19 @@
 package com.example.singleplayergame.service;
 
 import com.example.singleplayergame.model.Games;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface GamingService {
 
-    List<Games> getAllGames();
+    ResponseEntity getAllGames();
 
-    Games createGame(Games game);
+    ResponseEntity createGame(Games game);
 
     Long joinForGame(Long id);
 
-    Games updateGame(Games game, Long gameId);
+    ResponseEntity updateGame(Games game, Long gameId);
 
-    void deleteGame(Long gameId);
+    ResponseEntity deleteGame(Long gameId);
 }

@@ -53,7 +53,7 @@ public class Profiles {
     private String cellNumber;
 
 
-    @Column(name = "user_name")
+    @Column(name = "user_name" , unique=true)
     private String username;
 
 

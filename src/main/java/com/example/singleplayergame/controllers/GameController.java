@@ -5,10 +5,7 @@ import com.example.singleplayergame.service.GamingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class GameController {
@@ -18,8 +15,8 @@ public class GameController {
 
 
     @GetMapping("/api/v1/games")     // End point for users to all available games .secured.
-    public List<Games> getAllGames(){
-        List<Games> games = gamingService.getAllGames();
+    public ResponseEntity getAllGames(){
+        ResponseEntity games = gamingService.getAllGames();
         return games;
     }
 
@@ -31,19 +28,21 @@ public class GameController {
 
     @PostMapping("/api/v1/admin/games")  // Creates a game
     public ResponseEntity<Games> createGame(@RequestBody Games game){
-        Games gameUpdated = gamingService.createGame(game);
-        return new ResponseEntity<>(gameUpdated, HttpStatus.OK);
+        ResponseEntity gameUpdated = gamingService.createGame(game);
+        return gameUpdated;
     }
 
     @PutMapping("/api/v1/admin/games/{id}")  //Only Admin can Update
-    public ResponseEntity<Games> createGame(@RequestBody Games game, @PathVariable(value = "id") Long gameId){
-        Games gameReturned = gamingService.updateGame(game,gameId);
-        return new ResponseEntity<>(gameReturned, HttpStatus.OK);
+    public ResponseEntity<Games> updateGame(@RequestBody Games game, @PathVariable(value = "id") Long gameId){
+        ResponseEntity gameReturned = gamingService.updateGame(game,gameId);
+        return  gameReturned ;
     }
 
     @DeleteMapping("/api/v1/admin/games/{id}")  //Only Admin can Update
-    public void deleteGame(@PathVariable Long id){
-         gamingService.deleteGame(id);
+    public ResponseEntity deleteGame(@PathVariable Long id){
+        ResponseEntity response =  gamingService.deleteGame(id);
+
+         return response;
     }
 
 
