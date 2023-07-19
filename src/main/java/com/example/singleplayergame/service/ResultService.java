@@ -1,15 +1,14 @@
 package com.example.singleplayergame.service;
 
 import com.example.singleplayergame.model.Results;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public interface ResultService {
-    Results getGameResult(Long gameId);
+    Results getGameResult(Long gameId) throws Exception;
 
-    List<Results> getAllGameResults();
+    ResponseEntity getAllGameResults(Long gameId);
 
-    Results createGameResult(Results result, Long gameId);
+    ResponseEntity createGameResult(Results result, Long gameId);
 }
