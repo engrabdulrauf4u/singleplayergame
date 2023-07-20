@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 
 @Service
 public class ResultServiceImpl implements ResultService{
@@ -55,7 +54,7 @@ public class ResultServiceImpl implements ResultService{
                 Results resultsNew  =new  Results();
 
                 resultsNew.setGameResult(result.getGameResult());
-                resultsNew.setGame(game);
+                resultsNew.setGames(game);
                 resultsNew.setScore(result.getScore());
 
                 resultSaved = resultRepository.save(resultsNew);

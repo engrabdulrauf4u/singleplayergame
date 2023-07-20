@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
@@ -56,7 +57,37 @@ public class Profiles {
     @Column(name = "user_name" , unique=true)
     private String username;
 
+    @OneToMany(mappedBy = "profiles" , targetEntity = Games.class,cascade = CascadeType.ALL,orphanRemoval = true)
+    List<Games> games;
 
+    public Profiles(Long profileId, String firstName, String lastName, int age, String role, String email, String password, String position, Date dateOfBirth, String cellNumber, String username,Games game) {
+        this.profileId = profileId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.role=role;
+        this.email = email;
+        this.password = password;
+        this.position = position;
+        this.dateOfBirth = dateOfBirth;
+        this.cellNumber = cellNumber;
+        this.username = username;
+        this.games.add(game);
+
+    }
+
+    public void addGames(Games game){
+        games.add(game);
+        game.setProfiles(this);
+    }
+
+    public void removeGames(Games game){
+        games.remove(game);
+        game.setProfiles(null);
+    }
+
+
+    
     @Override
     public String toString() {
         return "Profiles{" +

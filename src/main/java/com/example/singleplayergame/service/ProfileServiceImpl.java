@@ -27,7 +27,10 @@ public class ProfileServiceImpl implements  ProfileService{
 
         }else {
             try{
-                profileSaved = profileRepository.save(profile);
+
+                Profiles p=new Profiles(profile.getProfileId(), profile.getFirstName(),profile.getLastName(),profile.getAge(),profile.getRole(),profile.getEmail(),profile.getPassword(), profile.getPosition() , profile.getDateOfBirth() , profile.getCellNumber() , profile.getUsername(),profile.getGames());
+
+                profileSaved = profileRepository.save(p);
             }catch(Exception exception){
                 return new ResponseEntity(" "+exception.getMessage(),HttpStatus.BAD_REQUEST);
 

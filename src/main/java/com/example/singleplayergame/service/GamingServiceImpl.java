@@ -44,15 +44,8 @@ public class GamingServiceImpl implements  GamingService
             {
                 return new ResponseEntity("Please dont provide gameId to create Game ",HttpStatus.BAD_REQUEST);
 
-            }if(game.getProfiles()==null)
+            }
             {
-                return new ResponseEntity("Please  provide Profile Data ",HttpStatus.BAD_REQUEST);
-
-            }if(game.getProfiles().getProfileId()==null)
-            {
-                return new ResponseEntity("Please  provide Profile Id ",HttpStatus.BAD_REQUEST);
-
-            }else {
                 try{
                     gameSaved = gamingRepository.save(game);
                 }catch(Exception exception){
@@ -98,7 +91,7 @@ public class GamingServiceImpl implements  GamingService
             originalGame.setGameDate(game.getGameDate());
             originalGame.setGameName(game.getGameName());
             originalGame.setGameVenue(game.getGameVenue());
-            originalGame.setProfiles(originalGame.getProfiles());
+            originalGame.setResults(originalGame.getResults());
 
             Games gameUpdated = gamingRepository.save(originalGame);
 

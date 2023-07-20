@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -18,7 +20,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Results {
 
     @Id
@@ -32,10 +33,13 @@ public class Results {
     @Column(name = "score")
     private Long score;
 
+    @ManyToOne
+    private Games games;
 
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="game_id", nullable=true)
-    private Games game;
-
+    public Results(Long resultId, String gameResult, Long score, Games games) {
+        this.resultId = resultId;
+        this.gameResult = gameResult;
+        this.score = score;
+        this.games = games;
+    }
 }
