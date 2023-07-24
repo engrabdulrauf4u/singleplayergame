@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.example.singleplayergame.service.ProfileService;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +30,13 @@ public class ProfileServiceImpl implements  ProfileService{
             try{
 
                 Profiles p=new Profiles(profile.getProfileId(), profile.getFirstName(),profile.getLastName(),profile.getAge(),profile.getRole(),profile.getEmail(),profile.getPassword(), profile.getPosition() , profile.getDateOfBirth() , profile.getCellNumber() , profile.getUsername(),profile.getGames());
+
+
+                p.setGames(profile.getGames());
+
+                p.getGames().get(0).setProfiles(profile);
+
+                p.getGames().get(0).setResults(profile.getGames().get(0).getResults());
 
                 profileSaved = profileRepository.save(p);
             }catch(Exception exception){

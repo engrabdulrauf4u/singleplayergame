@@ -1,13 +1,13 @@
 package com.example.singleplayergame.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -16,10 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Profiles {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "profile_id", nullable = false)
     private Long profileId;
 
@@ -58,9 +57,9 @@ public class Profiles {
     private String username;
 
     @OneToMany(mappedBy = "profiles" , targetEntity = Games.class,cascade = CascadeType.ALL,orphanRemoval = true)
-    List<Games> games;
+    List<Games> games=new ArrayList<Games>();
 
-    public Profiles(Long profileId, String firstName, String lastName, int age, String role, String email, String password, String position, Date dateOfBirth, String cellNumber, String username,Games game) {
+    public Profiles(Long profileId, String firstName, String lastName, int age, String role, String email, String password, String position, Date dateOfBirth, String cellNumber, String username,List<Games> games) {
         this.profileId = profileId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -72,12 +71,12 @@ public class Profiles {
         this.dateOfBirth = dateOfBirth;
         this.cellNumber = cellNumber;
         this.username = username;
-        this.games.add(game);
+        this.games=games;
 
     }
 
     public void addGames(Games game){
-        games.add(game);
+        this.setGames(games);
         game.setProfiles(this);
     }
 
@@ -101,7 +100,7 @@ public class Profiles {
                 ", position='" + position + '\'' +
                 ", dateOfBirth=" + dateOfBirth +
                 ", cellNumber='" + cellNumber + '\'' +
-                ", username='" + username + '\'' +
-                '}';
-    }
+                ", username='" + username + '\'' ;
+}
+
 }

@@ -1,13 +1,12 @@
 package com.example.singleplayergame.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +17,7 @@ import java.util.List;
 public class Games {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "game_id", nullable = false)
     private Long gameId;
 
@@ -33,21 +32,12 @@ public class Games {
 
 
     @ManyToOne
+    @JoinColumn(name = "profile_id")
     private Profiles profiles;
 
     @OneToMany(mappedBy = "games" , targetEntity = Results.class,cascade = CascadeType.ALL,orphanRemoval = true)
-    List<Results> results;
+    List<Results> results =  new ArrayList<Results>();
 
-
-    public void addResults(Results result){
-        results.add(result);
-        result.setGames(this);
-    }
-
-    public void removeResults(Results result){
-        results.remove(result);
-        result.setGames(null);
-    }
 
     public Games(Long gameId, String gameName, Date gameDate, String gameVenue, Profiles profiles, List<Results> results) {
         this.gameId = gameId;
@@ -55,6 +45,6 @@ public class Games {
         this.gameDate = gameDate;
         this.gameVenue = gameVenue;
         this.profiles = profiles;
-        this.results.add((Results) results);
+        this.results = results;
     }
 }

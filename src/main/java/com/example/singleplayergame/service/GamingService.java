@@ -9,7 +9,7 @@ public interface GamingService {
 
     ResponseEntity getAllGames();
 
-    ResponseEntity createGame(Games game);
+    ResponseEntity createGame(Games games);
 
     Long joinForGame(Long id);
 
